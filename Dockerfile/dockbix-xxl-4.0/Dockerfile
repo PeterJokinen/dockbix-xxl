@@ -120,7 +120,7 @@ RUN \
   sed -i "s/{ZABBIX_REVISION}/$zabbix_revision/g" include/version.h && \
   ./bootstrap.sh && \
   export CFLAGS="-fPIC -pie -Wl,-z,relro -Wl,-z,now" && \
-  ./configure --enable-server --enable-agent --with-mysql --enable-java \
+  ./configure --enable-server --with-mysql --enable-java \
               --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi \
               --enable-ipv6 --with-jabber --with-openssl --with-ssh2 \
               --enable-proxy --with-ldap --with-unixodbc && \
