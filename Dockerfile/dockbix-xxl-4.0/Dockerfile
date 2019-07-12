@@ -198,6 +198,7 @@ RUN \
   sed -i "s#</body></html>#<script type='text/javascript' src='updatechecker/updatechecker.js'></script></body></html>#g" /usr/local/src/zabbix/frontends/php/app/views/layout.htmlpage.php && \
   grep 'updatechecker.js' /usr/local/src/zabbix/frontends/php/app/views/layout.htmlpage.php && \
   sed -i "s#'login' => \[#'xxl' => \n[\n'label' => _('XXL extensions'),\n'user_type' => USER_TYPE_SUPER_ADMIN,\n'default_page_id' => 0,\n'pages' => [\n['url' => 'searcher.php','label' => _('Searcher'),],\n['url' => 'zapix.php','label' => _('Zapix'),],\n['url' => 'grapher.php','label' => _('Grapher'),],\n['url' => 'about.php','label' => _('About'),]\n]],\n'login' => [#g" /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
+  sed -i "s#'login' => \[#'iiris' => [\n'label' => _('Iiris extensions'),\n'user_type' => USER_TYPE_SUPER_ADMIN,\n'default_page_id' => 0,\n'pages' => [\n['url' => 'testing.php','label' => _('Testing'),]\n]],\n'login' => [#g" /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
   grep 'XXL extensions' /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
   sed -i "s#'admin': 0},# 'admin': 0, 'xxl': 0},#g" /usr/local/src/zabbix/frontends/php/js/main.js && \
   grep "'xxl': 0}" /usr/local/src/zabbix/frontends/php/js/main.js && \
