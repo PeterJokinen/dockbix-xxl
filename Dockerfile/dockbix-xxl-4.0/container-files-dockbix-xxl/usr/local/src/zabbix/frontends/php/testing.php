@@ -19,7 +19,7 @@
 **/
 
 require_once dirname(__FILE__).'/include/config.inc.php';
-$page['title'] = _('Testing');
+$page['title'] = _('Item Testing');
 $page['file'] = 'testing.php';
 $page['type'] = detect_page_type(PAGE_TYPE_HTML);
 require_once dirname(__FILE__).'/include/page_header.php';

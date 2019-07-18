@@ -120,7 +120,7 @@ RUN \
   sed -i "s/{ZABBIX_REVISION}/$zabbix_revision/g" include/version.h && \
   ./bootstrap.sh && \
   export CFLAGS="-fPIC -pie -Wl,-z,relro -Wl,-z,now" && \
-  ./configure --enable-server --with-mysql --enable-java \
+  ./configure --enable-server --enable-agent --with-mysql --enable-java \
               --with-net-snmp --with-libcurl --with-libxml2 --with-openipmi \
               --enable-ipv6 --with-jabber --with-openssl --with-ssh2 \
               --enable-proxy --with-ldap --with-unixodbc && \
@@ -198,9 +198,13 @@ RUN \
   sed -i "s#</body></html>#<script type='text/javascript' src='updatechecker/updatechecker.js'></script></body></html>#g" /usr/local/src/zabbix/frontends/php/app/views/layout.htmlpage.php && \
   grep 'updatechecker.js' /usr/local/src/zabbix/frontends/php/app/views/layout.htmlpage.php && \
   sed -i "s#'login' => \[#'xxl' => \n[\n'label' => _('XXL extensions'),\n'user_type' => USER_TYPE_SUPER_ADMIN,\n'default_page_id' => 0,\n'pages' => [\n['url' => 'searcher.php','label' => _('Searcher'),],\n['url' => 'zapix.php','label' => _('Zapix'),],\n['url' => 'grapher.php','label' => _('Grapher'),],\n['url' => 'about.php','label' => _('About'),]\n]],\n'login' => [#g" /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
-  sed -i "s#'login' => \[#'iiris' => [\n'label' => _('Iiris extensions'),\n'user_type' => USER_TYPE_SUPER_ADMIN,\n'default_page_id' => 0,\n'pages' => [\n['url' => 'testing.php','label' => _('Testing'),]\n]],\n'login' => [#g" /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
+  sed -i "s#'login' => \[#'iiris' => [\n'label' => _('Iiris extensions'),\n'user_type' => USER_TYPE_SUPER_ADMIN,\n'default_page_id' => 0,\n'pages' => [\n['url' => 'testing.php','label' => _('Testing')]\n]],\n'login' => [#g" /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
+  sed -i "s#_('Info')#_('Test'),\n_('Info')#g" /usr/local/src/zabbix/frontends/php/include/views/configuration.item.list.php && \
+  sed -i "s#// info#\$test = new CCol((new CLink(\n'Start',))\n->addClass(ZBX_STYLE_LINK_ACTION)\n->addClass(itemIndicatorStyle(\$item['status'], \$item['state']))\n->addSID()\n);\n\n// info#g" /usr/local/src/zabbix/frontends/php/include/views/configuration.item.list.php && \
+  sed -i "s#\$status,#\$status,\n\$test,\n#g" /usr/local/src/zabbix/frontends/php/include/views/configuration.item.list.php && \
   grep 'XXL extensions' /usr/local/src/zabbix/frontends/php/include/menu.inc.php && \
   sed -i "s#'admin': 0},# 'admin': 0, 'xxl': 0},#g" /usr/local/src/zabbix/frontends/php/js/main.js && \
+  sed -i "s#'admin': 0, 'xxl': 0},#'admin': 0, 'xxl': 0, 'iiris': 0},#g" /usr/local/src/zabbix/frontends/php/js/main.js && \
   grep "'xxl': 0}" /usr/local/src/zabbix/frontends/php/js/main.js && \
   INITIAL_ADMIN_SEARCH="'Admin','Zabbix','Administrator','5fce1b3e34b520afeffb37ce08c7cd66'" && \
   INITIAL_ADMIN_REPLACE="'$XXL_apiuser','Zabbix','Administrator','$(echo -n $XXL_apipass | md5sum | awk '{print $1}')'" && \
